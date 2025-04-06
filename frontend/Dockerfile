@@ -1,20 +1,18 @@
-# Step 1: Use an official Node.js image to build the app
-FROM node:20 as build
+# Step 1: Use official Node.js image
+FROM node:20 AS development
 
-# Set the working directory in the container
-WORKDIR /app
+# Set working directory
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if available)
+# Copy package files and install dependencies first
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY . .
 
-# Expose port 4200 for the Angular development server
+# Expose the Angular dev server port
 EXPOSE 4200
 
-# Run the Angular development server (npm start)
+# Run the Angular dev server (bind to all interfaces)
 CMD ["npm", "start"]
